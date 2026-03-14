@@ -1,5 +1,7 @@
 package com.example.LearnQueryOptimization.controller;
 
+import java.util.List;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -55,6 +57,12 @@ public class ProductController {
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "id") String sortBy,
             @RequestParam(defaultValue = "asc") String direction) {
+
+        size = Math.min(size, 100);
+
+        if (!List.of("id", "name", "price").contains(sortBy)) {
+            sortBy = "id";
+        }
 
         Sort sort = direction.equalsIgnoreCase("desc")
                 ? Sort.by(sortBy).descending()
