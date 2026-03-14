@@ -51,7 +51,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public PageResponse<ProductResponse> getAll(Pageable pageable) {
-        Page<Product> page = productRepository.findAll(pageable);
+        Page<Product> page = productRepository.findAllWithCategory(pageable);
         List<ProductResponse> data = page.getContent()
                 .stream()
                 .map(this::toResponse)
